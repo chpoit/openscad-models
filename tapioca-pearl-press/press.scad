@@ -4,10 +4,15 @@ gen_bottom_plate = false;
 with_channels = true;
 
 plate_thickness = 7;
-pearl_diameter = 5;
 
-size_x = 60;
-size_y = 60;
+// Working params
+// p_d = 5, x,y=60
+// p_d = 6.6, x,y=66
+// p_d = 8, x,y=68
+pearl_diameter = 8;
+
+size_x = 68;
+size_y = 68;
 
 //TODO: Look into adding holes for metal rods instead of thing plastic ridges
 // The code is not that clean, and is mostly in a "it works" state.
