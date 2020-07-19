@@ -3,7 +3,14 @@ $fn = 30;
 gen_bottom_plate = false;
 with_channels = true;
 
+plate_thickness = 7;
+pearl_diameter = 5;
+
+size_x = 60;
+size_y = 60;
+
 //TODO: Look into adding holes for metal rods instead of thing plastic ridges
+// The code is not that clean, and is mostly in a "it works" state.
 
 module base_plate(size_x, size_y, plate_thickness) {
     color([ 205 / 255, 205 / 255, 205 / 255 ]) {
@@ -15,8 +22,8 @@ module pearl(diameter) {
     color([ 155 / 255, 0 / 255, 0 / 255 ]) { sphere(diameter / 2); };
 }
 
-module channel(length, diameter, is_x_axis) {
-    translate([ 0, 0, 10 ]) {
+module channel(length, diameter, plate_thickness, is_x_axis) {
+    translate([ 0, 0, plate_thickness ]) {
         if (is_x_axis) {
             rotate([ 270, 0, 0 ]) { cylinder(r = diameter / 2, h = length); }
         } else {
@@ -25,7 +32,7 @@ module channel(length, diameter, is_x_axis) {
     }
 }
 
-module plate_elements(size_x, size_y, pearl_diameter, pearl_spacing,
+module plate_elements(size_x, size_y, pearl_diameter, pearl_spacing, plate_thickness,
                       with_channels) {
     lower_bound = 0;
     upper_bound_x = floor(size_x / pearl_spacing);
@@ -39,11 +46,11 @@ module plate_elements(size_x, size_y, pearl_diameter, pearl_spacing,
                     channel_size = pearl_diameter / 4;
                     translate(
                         [ pearl_diameter / 2 + i * pearl_spacing, 0, 0 ]) {
-                        channel(size_x, channel_size, true);
+                        channel(size_x, channel_size, plate_thickness, true);
                     }
                     translate(
                         [ 0, pearl_diameter / 2 + j * pearl_spacing, 0 ]) {
-                        channel(size_y, channel_size, false);
+                        channel(size_y, channel_size, plate_thickness, false);
                     }
 
                     color([ 99 / 255, 99 / 255, 0 / 255 ]) {
@@ -52,7 +59,7 @@ module plate_elements(size_x, size_y, pearl_diameter, pearl_spacing,
                                 pearl_spacing / 2,
                             0, 0
                         ]) {
-                            channel(size_x, channel_size, true);
+                            channel(size_x, channel_size, plate_thickness, true);
                         }
                         translate([
                             0,
@@ -60,15 +67,15 @@ module plate_elements(size_x, size_y, pearl_diameter, pearl_spacing,
                                 pearl_spacing / 2,
                             0
                         ]) {
-                            channel(size_y, channel_size, false);
+                            channel(size_y, channel_size, plate_thickness, false);
                         }
                     }
                 }
                 y_pos = pearl_diameter / 2 + j * pearl_spacing;
-                translate([ x_pos, y_pos, 10 ]) { pearl(pearl_diameter); }
+                translate([ x_pos, y_pos, plate_thickness ]) { pearl(pearl_diameter); }
                 color([ 0 / 255, 0 / 255, 0 / 255 ]) {
                     translate([
-                        x_pos + pearl_spacing / 2, y_pos + pearl_spacing / 2, 10
+                        x_pos + pearl_spacing / 2, y_pos + pearl_spacing / 2, plate_thickness
                     ]) {
                         pearl(pearl_diameter);
                     }
@@ -129,7 +136,7 @@ module full_plate(size_x, size_y, plate_thickness, pearl_diameter,
         }
 
         pearl_spacing = pearl_diameter + pearl_diameter / 2;
-        plate_elements(sub_x, sub_y, pearl_diameter, pearl_spacing,
+        plate_elements(sub_x, sub_y, pearl_diameter, pearl_spacing, plate_thickness,
                        with_channels);
     }
     if (bottom_plate) {
@@ -138,11 +145,5 @@ module full_plate(size_x, size_y, plate_thickness, pearl_diameter,
     }
 }
 
-// base_plate(90,90);
-
-// pearl(5);
-
-dim = 60;
-full_plate(dim, dim, 10, 5, with_channels, gen_bottom_plate);
-// channel(100, 2, true);
+full_plate(size_x, size_y, plate_thickness, pearl_diameter, with_channels, gen_bottom_plate);
 
