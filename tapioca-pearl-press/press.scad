@@ -20,10 +20,11 @@ module channel(length, diameter, is_x_axis) {
     }
 }
 
-module plate_elements() {
-    lower_bound = min_border;
-    upper_bound_x = floor(size_x / (pearl_spacing)-min_border * 2);
-    upper_bound_y = floor(size_y / (pearl_spacing)-min_border * 2);
+module plate_elements(size_x, size_y, pearl_diameter, pearl_spacing,
+                      with_channels) {
+    lower_bound = 0;
+    upper_bound_x = floor(size_x / pearl_spacing);
+    upper_bound_y = floor(size_y / pearl_spacing);
 
     for (i = [lower_bound:upper_bound_x]) {
         x_pos = pearl_diameter / 2 + i * pearl_spacing;
@@ -72,22 +73,63 @@ module plate_elements() {
     }
 }
 
-module alignment_holes() { cylinder(); }
+module single_ridge(length, diameter, plate_thickness, is_x_axis) {
+    module ridge(length, diameter, plate_thickness) {
+        translate([0,0,length/6]){
+        translate([ 0, -diameter / 2]) {
+            cube([ plate_thickness*2, diameter, length/3*2 ]);
+        }
+        cylinder(r = diameter / 2, h = length/3*2);
+        }
+    }
+    translate([ 0, 0, plate_thickness * 2.2 ]) {
+        if (is_x_axis) {
+            rotate([ 270, 90, 0 ]) { ridge(length, diameter, plate_thickness); }
+        } else {
+            rotate([ 0, 90, 0 ]) { ridge(length, diameter, plate_thickness); }
+        }
+    }
+}
+
+module ridges(size_x, size_y, ridge_x, ridge_y, ridge_thickness,
+                  plate_thickness, min_border) {
+        translate([ size_x - min_border / 5 * 3, min_border, 0 ]) {
+            single_ridge(ridge_x, ridge_thickness, plate_thickness, true);
+        }
+        translate([ min_border, size_y - min_border / 5 * 3, 0 ]) {
+            single_ridge(ridge_y, ridge_thickness, plate_thickness, false);
+        }
+    }
 
 module full_plate(size_x, size_y, plate_thickness, pearl_diameter,
                   with_channels, bottom_plate) {
+    
+    min_border = 5; // milimeters, will actually be double for the ridges
+    ridge_thickness = 3;
+    sub_x = size_x - min_border * 2;
+    sub_y = size_y - min_border * 2;
+
     difference() {
-        min_border = 0.3;
 
         if (bottom_plate) {
             base_plate(size_x, size_y, plate_thickness);
         } else {
-            translate([ 0, 0, plate_thickness ]) {
-                base_plate(size_x, size_y, plate_thickness);
+            difference() {
+                translate([ 0, 0, plate_thickness ]) {
+                    base_plate(size_x, size_y, plate_thickness);
+                }
+                ridges(size_x, size_y, sub_x, sub_y, ridge_thickness + 0.5,
+                       plate_thickness, min_border);
             }
         }
+
         pearl_spacing = pearl_diameter + pearl_diameter / 2;
-        plate_elements();
+        plate_elements(sub_x, sub_y, pearl_diameter, pearl_spacing,
+                       with_channels);
+    }
+    if (bottom_plate) {
+        ridges(size_x, size_y, sub_x, sub_y, ridge_thickness, plate_thickness,
+               min_border);
     }
 }
 
@@ -95,5 +137,7 @@ module full_plate(size_x, size_y, plate_thickness, pearl_diameter,
 
 // pearl(5);
 
-full_plate(60, 60, 10, 5, true, false);
+dim = 60;
+full_plate(dim, dim, 10, 5, true, true);
 // channel(100, 2, true);
+
