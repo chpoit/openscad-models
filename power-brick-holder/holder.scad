@@ -1,3 +1,4 @@
+use <../wiki-yoinks/prism.scad>
 $fn = 360;
 
 brick_width = 90;
@@ -21,19 +22,7 @@ flap_width = holder_y;
 
 screw_diam = 3;
 
-module prism(l, w, h) {
-    // from wiki
-    // https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Primitive_Solids#polyhedron
-    polyhedron(points =
-                   [
-                       [ 0, 0, 0 ], [ l, 0, 0 ], [ l, w, 0 ], [ 0, w, 0 ],
-                       [ 0, w, h ], [ l, w, h ]
-                   ],
-               faces = [
-                   [ 0, 1, 2, 3 ], [ 5, 4, 3, 2 ], [ 0, 4, 5, 1 ], [ 0, 3, 4 ],
-                   [ 5, 2, 1 ]
-               ]);
-}
+
 
 module plug(size_x, size_z) {
     color([ 255 / 255, 0 / 255, 0 / 255 ]) { cube([ size_x, 30, size_z ]); }
