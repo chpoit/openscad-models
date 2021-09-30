@@ -15,6 +15,7 @@ module GridSquare(grid_size, grid_height) {
         translate([
             grid_size - grid_height,
             grid_size,
+            0
         ]) {
             rotate([ 0, 0, 270 ]) { prism(grid_size, grid_height, grid_height); }
         }
@@ -31,10 +32,6 @@ module MultiGrid(grid_size, grid_height, grid_x, grid_y){
     }
 }
 
-MultiGrid(grid_size, grid_height, 1, 1);
-
-
-
-
-
-
+if (is_single_unit) {
+    MultiGrid(grid_size, grid_height, 1, 1);
+}
