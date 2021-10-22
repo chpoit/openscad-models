@@ -1,6 +1,6 @@
 # Sorting Boxes
 
-This is a set of sorting boxes with grid registrations that shouldn't move around when you open and close drawers.
+This is a set of sorting boxes with grid registrations that shouldn't move around when you open and close drawers. By default, they are generated in 1\*1 to 5\*5 configurations with or without label lips in up to 6 different positions.
 
 
 Heavily inspired by what Alexandre Chappel offers [here](https://www.alch.shop/shop/assortment). Show him some support if you're interested in more complex offerings.
