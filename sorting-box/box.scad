@@ -76,7 +76,7 @@ module LipPosPrinter(box_height, box_side_dimension, lip_width, lip_length,
 module LipBuilder(box_height, grid_size, box_size_x, box_size_y, wall_size,
                   label_pos, label_side) {
     lip_width = grid_size / 3 * 2;
-    lip_length = 7.5;
+    lip_length = 12;
     lip_thickness = wall_size / 2;
     slope_adjust = wall_size;
     // x_translate = (box_size_x-lip_width)/2;
@@ -119,8 +119,6 @@ module Container(box_height, grid_size, grid_height, slope_pitch, wall_size,
     }
 }
 
-if (is_single_unit) {
-    Container(box_height, grid_size, grid_height, slope_pitch, wall_size, box_x,
+Container(box_height, grid_size, grid_height, slope_pitch, wall_size, box_x,
               box_y, with_lip, label_pos, label_side);
-}
 
