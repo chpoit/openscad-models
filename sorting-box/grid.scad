@@ -32,6 +32,4 @@ module MultiGrid(grid_size, grid_height, grid_x, grid_y){
     }
 }
 
-if (is_single_unit) {
-    MultiGrid(grid_size, grid_height, 1, 1);
-}
+MultiGrid(grid_size, grid_height, grid_x, grid_y);

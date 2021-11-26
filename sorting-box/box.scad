@@ -77,7 +77,7 @@ module LipBuilder(box_height, grid_size, box_size_x, box_size_y, wall_size,
                   label_pos, label_side) {
     lip_width = grid_size / 3 * 2;
     lip_length = 12;
-    lip_thickness = wall_size / 2;
+    lip_thickness = wall_size;
     slope_adjust = wall_size;
     // x_translate = (box_size_x-lip_width)/2;
 
@@ -102,23 +102,24 @@ module Container(box_height, grid_size, grid_height, slope_pitch, wall_size,
     box_size_y = grid_size * box_y;
 
     difference() {
-        union(){
-        difference() {
-            color([ 75 / 255, 75 / 255, 75 / 255 ]) {
-                cube(size =
-                         [ grid_size * box_x, grid_size * box_y, box_height ]);
+        union() {
+            difference() {
+                color([ 75 / 255, 75 / 255, 75 / 255 ]) {
+                    cube(size = [
+                        grid_size * box_x, grid_size * box_y,
+                        box_height
+                    ]);
+                }
+                Slope(box_size_x, box_size_y, slope_pitch);
+                InnerBox(box_size_x, box_size_y, wall_size);
             }
-            Slope(box_size_x, box_size_y, slope_pitch);
-            InnerBox(box_size_x, box_size_y, wall_size);
+            if (with_lip) {
+                LipBuilder(box_height, grid_size, box_size_x, box_size_y,
+                           wall_size, label_pos, label_side);
+            }
         }
-        if (with_lip) {
-            LipBuilder(box_height, grid_size, box_size_x, box_size_y, wall_size,
-                       label_pos, label_side);
-        }}
         MultiGrid(grid_size, grid_height, ceil(box_x), ceil(box_y));
     }
 }
 
-Container(box_height, grid_size, grid_height, slope_pitch, wall_size, box_x,
-              box_y, with_lip, label_pos, label_side);
-
+Container(box_height, grid_size, grid_height, slope_pitch, wall_size, box_x,          box_y, with_lip, label_pos, label_side);
