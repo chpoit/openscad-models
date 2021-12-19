@@ -9,7 +9,7 @@ box_height = 68;
 // pitch of the slope in mm
 slope_pitch = 1;
 // wall thickness in mm
-wall_size = 1.89;
+wall_size = 1.2;
 
 ///////////// Overridden by the generator. Only change if you are generating one
 /// offs /////////////
@@ -20,9 +20,9 @@ grid_y = 2;
 // Supports partial sizes if you want a 1.8 * 2.73 box, for example
 // Goin
 box_x = 1.88;
+box_y = 5;
+box_x = 1;
 box_y = 1;
-// box_x = 1;
-// box_y = 1;
 
 // Lip Configuration
 with_lip = false;

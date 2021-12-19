@@ -40,8 +40,5 @@ module lid(x, y, t, corner_radius, hole_diam, hole_offset) {
     }
 }
 
-lid(x, y, t, corner_radius, hole_diam, hole_offset);
-
-
-
-
+// lid(x, y, t, corner_radius, hole_diam, hole_offset);
+CurvedCorner(corner_radius, t);
