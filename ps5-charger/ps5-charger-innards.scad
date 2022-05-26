@@ -85,6 +85,6 @@ module Innards() {
         ]);
 
         rotatedBonder();
-        mirror([ 0, 1, 0 ]) rotatedBonder();
+        mirror([ 1, 0, 0 ]) rotatedBonder();
     }
 }
