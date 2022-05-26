@@ -1,7 +1,7 @@
 
 wingHeight = 45.55;
 
-wingLength = 160;
+wingLength = 164;
 wingThickness = 3.85;
 
 wingTopFront = 38.5;
