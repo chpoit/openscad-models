@@ -1,25 +1,6 @@
+include <config.scad>
 
-fast = false;
-// fast = true;
-nozzleSize = 0.4;
 
-innardsLength = 146;
-innerLowerWidth1 = 19.3;
-innerLowerWidth2 = 35.81;
-
-innardsLengthMid = 140;
-innerMidWidth = 28;
-innerMidHeight = 29.6;
-innardsLengthMidOffset = (innardsLength - innardsLengthMid) / 2;
-
-innardsLengthTop = 132.6;
-innerUpperWidth = 23.4;
-innardsLengthTopOffset = (innardsLength - innardsLengthTop) / 2;
-
-innardsHeight = 51.7;
-
-bonderDistance = 4;
-bonderLongDistance = 6;
 
 module Innards() {
 
@@ -30,7 +11,7 @@ module Innards() {
 
     module Bonder() {
         topDiff = 3;
-        blockHeight = 5.87 - 3.85;
+        blockHeight = 5.87 - wingThickness;
         topWidth = 28;
         topHeight = 32;
         color([ 10 / 255, 75 / 255, 75 / 255 ]) {
