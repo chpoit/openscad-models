@@ -26,6 +26,7 @@ box_y = 5;
 
 // Lip Configuration
 with_lip = true;
+lip_thickness = 1.5;
 label_pos = "center"; // Center, corner, opposite
 label_side = "A";     // 1 or 2
 
