@@ -28,9 +28,35 @@ module flap(Width) {
     }
 }
 
-module mount2(flapWidth = 2.4) {
+module mount2(flapWidth = 3) {
     translate([ 0, 4, 0 ]) flap(flapWidth);
     translate([ 0, 10.5, 0 ]) flap(flapWidth);
+}
+
+module mount3(flapWidth = 3)
+{
+    
+    module nut_hole()
+    {
+        rotate([0, 90, 0]) // (Un)comment to rotate nut hole
+        rotate([90, 0, 0])
+            for(i = [0:(360 / 3):359])
+            {
+                rotate([0, 0, i])
+                    cube([4.6765, 8.1, 5], center = true);
+            }
+    }
+
+    difference()
+    {
+        translate([0, (-2.5), 0])
+            flap(8);
+
+        translate([0, (-8.5), 0])
+            nut_hole();
+    }
+
+    mount2(flapWidth);
 }
 
 
