@@ -1,4 +1,5 @@
 *.stl
 *.gcode
+*.3mf
 
 desk mount mod/*
