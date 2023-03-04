@@ -1,3 +1,4 @@
+*.svg
 *.stl
 *.gcode
 *.3mf
