@@ -1,4 +1,7 @@
 
+
+
+
 $fn = 60;
 
 grid_size = 60;
@@ -19,14 +22,13 @@ grid_x = 2;
 grid_y = 2;
 // Supports partial sizes if you want a 1.8 * 2.73 box, for example
 // Goin
-box_x = 1.88;
+box_x = 1;
 // box_y = 5;
 // box_x = 1;
-box_y = 5;
+box_y = 1;
 
 // Lip Configuration
 with_lip = true;
 lip_thickness = 1.5;
 label_pos = "center"; // Center, corner, opposite
 label_side = "A";     // 1 or 2
-
