@@ -5,7 +5,7 @@ use <../things/batteries/3A_battery.scad>
 use <box.scad>
 
 remove_top_distance = 40;
-battery_scale_offset = 108;
+battery_scale_offset = 110;
 x_space = box_x * grid_size - wall_size * 2;
 y_space = box_y * grid_size - wall_size * 2;
 battery_effective_width = AAAdiam * battery_scale_offset / 100;
@@ -16,13 +16,14 @@ battery_z = box_height - battery_effective_height / 2 * 2;
 x_count = floor(x_space / battery_effective_width);
 y_count = floor(y_space / battery_effective_width);
 
-battery_gap = 0.4;
+battery_gap = 0.2;
+battery_gap = 0.2;
 battery_wall_offset = wall_size + battery_effective_width / 2 + battery_gap;
 
 difference()
 {
     FullContainer(box_height, grid_size, grid_height, slope_pitch, wall_size, box_x, box_y, remove_top_distance);
-    for (i = [0:x_count - 2])
+    for (i = [0:x_count - 1])
     {
         x_pos = battery_wall_offset + (battery_effective_width + battery_gap) * i;
         for (j = [0:y_count - 1])

@@ -25,7 +25,7 @@ grid_y = 2;
 box_x = 1;
 // box_y = 5;
 // box_x = 1;
-box_y = 1;
+box_y = 2;
 
 // Lip Configuration
 with_lip = true;
